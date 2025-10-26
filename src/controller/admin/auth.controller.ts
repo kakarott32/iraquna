@@ -35,7 +35,6 @@ export const authController = new Elysia()
                     auth_token: accessToken,
                     type: account.type,
                 });
-
                 return {
                     error: false,
                     message: "تم تسجيل الدخول بنجاح",

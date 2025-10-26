@@ -14,8 +14,12 @@ class AccountService {
     }: {
         filter: Record<string, any>;
     }) {
-        const account = await this.accountsSchema.findOne(filter);
-        return account;
+        const account = await this.accountsSchema.aggregate(
+            [
+                { $match: filter },
+            ]
+        );
+        return account[0];
     }
 
     public async updateAccountBy({
