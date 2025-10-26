@@ -15,7 +15,7 @@
     "cloudinary": "^1.41.0",
     "elysia": "^1.4.12",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.0.0"
+    "mongoose": "^8.19.2"
   },
   "devDependencies": {
     "@types/bun": "latest",
