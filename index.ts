@@ -15,7 +15,7 @@ import connectUsAdminController from './src/controller/admin/connect_us.controll
 const startServer = async () => {
   try {
     await connectDB();
-    
+
     const port = process.env.PORT || 3020;
     // console.log(`🚀 Server is running on port ${port}`);
     // console.log(`📡 API Base URL: http://localhost:${port}/api`);
@@ -31,7 +31,7 @@ const startServer = async () => {
     // console.log(`🖼️ Gallery Admin: http://localhost:${port}/api/admin/gallery`);
     // console.log(`📋 Reports Admin: http://localhost:${port}/api/admin/reports`);
     // console.log(`📞 Connect Us Admin: http://localhost:${port}/api/admin/connect-us`);
-    
+
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);
@@ -41,18 +41,19 @@ const startServer = async () => {
 const app = new Elysia()
   // CORS middleware
   .use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:3020'],
+    origin: '*',
+    // origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:3020' , 'http://192.168.0.14:3020'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
   }))
-  
+
   // Health check endpoint
   .get('/', () => ({
     message: 'Iraquna Dashboard API',
     version: '1.0.0',
     status: 'Active'
   }))
-  
+
   // Mount routes
   .group('/api', (app) => app
     .use(authController)
@@ -65,25 +66,25 @@ const app = new Elysia()
     .use(reportAdminController)
     .use(connectUsAdminController)
   )
-  
+
   // Error handling
   .onError(({ code, error, set }) => {
     console.error('Unhandled error:', error);
-    
+
     if (code === 'NOT_FOUND') {
       set.status = 404;
       return { error: 'Route not found' };
     }
-    
+
     if (code === 'VALIDATION') {
       set.status = 400;
       return { error: 'Validation error', details: error.message };
     }
-    
+
     set.status = 500;
     return { error: 'Internal server error' };
   })
-  
+
   .listen(process.env.PORT || 3001);
 
 // Initialize server
