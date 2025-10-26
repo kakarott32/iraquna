@@ -13,9 +13,7 @@ class AccountService {
         filter,
     }: {
         filter: Record<string, any>;
-    }) {
-        console.log(filter);
-        
+    }) {        
         const account = await this.accountsSchema.findOne(filter);
         return account;
     }
