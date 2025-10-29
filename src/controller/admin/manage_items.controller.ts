@@ -2,8 +2,6 @@ import Elysia, { t } from "elysia";
 import mongoose from "mongoose";
 import { AuthServiceDashboard } from "../../middleware/auth.middleware";
 import ManageItemsService from "../../services/manage_items.service";
-import type { IManageItems } from "../../interface/Manage_items.interface";
-import type { IMultiLanguageText } from "../../interface/global.interface";
 
 const ObjectId = mongoose.Types.ObjectId.createFromHexString;
 
@@ -154,6 +152,17 @@ export const manageItemsAdminController = new Elysia()
                     }),
                     stars: t.Number(),
                     weight: t.Number(),
+                    weight_unite: t.Object({
+                        ar: t.String({
+                            error: "Weight unit in Arabic is required",
+                        }),
+                        en: t.String({
+                            error: "Weight unit in English is required",
+                        }),
+                        ku: t.String({
+                            error: "Weight unit in Kurdish is required",
+                        }),
+                    }),
                     image: t.Object({
                         id: t.String({
                             error: "Image ID is required",
@@ -225,6 +234,17 @@ export const manageItemsAdminController = new Elysia()
                     })),
                     stars: t.Optional(t.Number()),
                     weight: t.Optional(t.Number()),
+                    weight_unite: t.Optional(t.Object({
+                        ar: t.String({
+                            error: "Weight unit in Arabic is required",
+                        }),
+                        en: t.String({
+                            error: "Weight unit in English is required",
+                        }),
+                        ku: t.String({
+                            error: "Weight unit in Kurdish is required",
+                        }),
+                    })),
                 }),
                 params: t.Object({
                     itemId: t.String(),
