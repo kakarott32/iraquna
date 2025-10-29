@@ -272,9 +272,17 @@ export const dashboardLandingController = new Elysia()
                 try {
                     const language = (query.lang as SupportedLanguage) || 'ar';
 
+                    // Validate language
+                    if (!['ar', 'en', 'ku'].includes(language)) {
+                        set.status = 400;
+                        return {
+                            error: true,
+                            message: "Unsupported language. Use: ar, en, or ku",
+                        };
+                    }
 
-                    // Fetch manage items with pagination
-                    const manageItems = await ManageItemsService.getAllManageItems();
+                    // Fetch manage items
+                    const manageItemsData = await ManageItemsService.getAllManageItems();
 
                     // Helper function to localize multi-language text
                     const localizeText = (text: any) => {
@@ -282,31 +290,33 @@ export const dashboardLandingController = new Elysia()
                         return text[language] || text.ar || text.en || text.ku || null;
                     };
 
-                    // Localize manage items  
-                    const localizedManageItems = manageItems.items.map((item: any) => ({
+                    // Localize manage items with localized images
+                    const localizedManageItems = manageItemsData.items.map((item: any) => ({
                         _id: item._id,
                         title: localizeText(item.title),
-                        description: localizeText(item.description),
-                        stars: item.stars,
-                        weight: item.weight,
-                        weight_unite: localizeText(item.weight_unite),
-                        image: item.image,
+                        images: item.images.map((image: any) => ({
+                            _id: image._id,
+                            title: localizeText(image.title),
+                            description: localizeText(image.description),
+                            stars: image.stars,
+                            weight: image.weight,
+                            weight_unite: localizeText(image.weight_unite),
+                            image: image.image,
+                        })),
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt
                     }));
 
                     // Prepare success message based on language
-                    const successMessage = language === 'ar' ? "تم استرجاع المنتجات المميزة بنجاح" :
-                                         language === 'en' ? "Special products retrieved successfully" :
-                                         "بەرهەمە تایبەتەکان بە سەرکەوتووی وەرگیران";
+                    const successMessage = language === 'ar' ? "تم استرجاع عناصر الإدارة بنجاح" :
+                                         language === 'en' ? "Manage items retrieved successfully" :
+                                         "بابەتە بەڕێوەبردنی بە سەرکەوتووی وەرگیران";
 
                     return {
                         error: false,
                         message: successMessage,
                         language,
-                        results: {
-                            items: localizedManageItems,
-                        }
+                        results: localizedManageItems
                     };
 
                 } catch (error) {
@@ -314,9 +324,9 @@ export const dashboardLandingController = new Elysia()
                     set.status = 500;
                     return {
                         error: true,
-                        message: language === 'ar' ? "خطأ في استرجاع المنتجات المميزة" :
-                               language === 'en' ? "Error retrieving special products" :
-                               "هەڵەیەک لە وەرگرتنەوەی بەرهەمە تایبەتەکاندا ڕوویدا",
+                        message: language === 'ar' ? "خطأ في استرجاع عناصر الإدارة" :
+                               language === 'en' ? "Error retrieving manage items" :
+                               "هەڵەیەک لە وەرگرتنەوەی بابەتە بەڕێوەبردنی دا ڕوویدا",
                     };
                 }
             }, {
@@ -326,8 +336,6 @@ export const dashboardLandingController = new Elysia()
                         t.Literal('en'),
                         t.Literal('ku')
                     ])),
-                    page: t.Optional(t.String()),
-                    limit: t.Optional(t.String()),
                 })
             })
     );
