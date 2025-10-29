@@ -68,7 +68,6 @@ class ManageItemsService {
             {
                 $set: {
                     "images.$.title": data.title,
-                    "images.$.description": data.description,
                     "images.$.stars": data.stars,
                     "images.$.weight": data.weight,
                 },

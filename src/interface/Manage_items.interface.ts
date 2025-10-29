@@ -8,7 +8,6 @@ export interface IManageItems {
 
 export interface IManageImages {
     title: IMultiLanguageText;
-    description: IMultiLanguageText;
     stars: number;
     weight?: number | null;
     weight_unite: IWeightUnit;

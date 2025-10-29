@@ -15,20 +15,6 @@ const manageImagesSchema = new mongoose.Schema({
             default: null
         }
     },
-    description: {
-        ar: {
-            type: String,
-            default: null
-        },
-        en: {
-            type: String,
-            default: null
-        },
-        ku: {
-            type: String,
-            default: null
-        }
-    },
     stars: {
         type: Number,
         required: true,

@@ -297,7 +297,6 @@ export const dashboardLandingController = new Elysia()
                         images: item.images.map((image: any) => ({
                             _id: image._id,
                             title: localizeText(image.title),
-                            description: localizeText(image.description),
                             stars: image.stars,
                             weight: image.weight,
                             weight_unite: localizeText(image.weight_unite),

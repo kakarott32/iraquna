@@ -145,11 +145,6 @@ export const manageItemsAdminController = new Elysia()
                         en: t.Optional(t.Nullable(t.String())),
                         ku: t.Optional(t.Nullable(t.String())),
                     }),
-                    description: t.Object({
-                        ar: t.Optional(t.Nullable(t.String())),
-                        en: t.Optional(t.Nullable(t.String())),
-                        ku: t.Optional(t.Nullable(t.String())),
-                    }),
                     stars: t.Number(),
                     weight: t.Number(),
                     weight_unite: t.Object({
@@ -223,11 +218,6 @@ export const manageItemsAdminController = new Elysia()
                 beforeHandle: AuthServiceDashboard,
                 body: t.Object({
                     title: t.Optional(t.Object({
-                        ar: t.Optional(t.Nullable(t.String())),
-                        en: t.Optional(t.Nullable(t.String())),
-                        ku: t.Optional(t.Nullable(t.String())),
-                    })),
-                    description: t.Optional(t.Object({
                         ar: t.Optional(t.Nullable(t.String())),
                         en: t.Optional(t.Nullable(t.String())),
                         ku: t.Optional(t.Nullable(t.String())),
