@@ -4,6 +4,7 @@ import AnimatedProductItemsService from "../../services/animated_product_items.s
 import SpecialProductItemsService from "../../services/special_product_items.service";
 import ConnectUsService from "../../services/connect_us.service";
 import GalleryService from "../../services/gallery.service";
+import ManageItemsService from "../../services/manage_items.service";
 import type { SupportedLanguage } from "../../interface/global.interface";
 
 export const dashboardLandingController = new Elysia()
@@ -267,4 +268,67 @@ export const dashboardLandingController = new Elysia()
                     limit: t.Optional(t.String()),
                 })
             })
+            .get("/manage-items", async ({ query, set }) => {
+                try {
+                    const language = (query.lang as SupportedLanguage) || 'ar';
+
+
+                    // Fetch manage items with pagination
+                    const manageItems = await ManageItemsService.getAllManageItems();
+
+                    // Helper function to localize multi-language text
+                    const localizeText = (text: any) => {
+                        if (!text || typeof text !== 'object') return text;
+                        return text[language] || text.ar || text.en || text.ku || null;
+                    };
+
+                    // Localize manage items  
+                    const localizedManageItems = manageItems.items.map((item: any) => ({
+                        _id: item._id,
+                        title: localizeText(item.title),
+                        description: localizeText(item.description),
+                        stars: item.stars,
+                        weight: item.weight,
+                        weight_unite: localizeText(item.weight_unite),
+                        image: item.image,
+                        createdAt: item.createdAt,
+                        updatedAt: item.updatedAt
+                    }));
+
+                    // Prepare success message based on language
+                    const successMessage = language === 'ar' ? "تم استرجاع المنتجات المميزة بنجاح" :
+                                         language === 'en' ? "Special products retrieved successfully" :
+                                         "بەرهەمە تایبەتەکان بە سەرکەوتووی وەرگیران";
+
+                    return {
+                        error: false,
+                        message: successMessage,
+                        language,
+                        results: {
+                            items: localizedManageItems,
+                        }
+                    };
+
+                } catch (error) {
+                    const language = (query.lang as SupportedLanguage) || 'ar';
+                    set.status = 500;
+                    return {
+                        error: true,
+                        message: language === 'ar' ? "خطأ في استرجاع المنتجات المميزة" :
+                               language === 'en' ? "Error retrieving special products" :
+                               "هەڵەیەک لە وەرگرتنەوەی بەرهەمە تایبەتەکاندا ڕوویدا",
+                    };
+                }
+            }, {
+                query: t.Object({
+                    lang: t.Optional(t.Union([
+                        t.Literal('ar'),
+                        t.Literal('en'),
+                        t.Literal('ku')
+                    ])),
+                    page: t.Optional(t.String()),
+                    limit: t.Optional(t.String()),
+                })
+            })
     );
+            

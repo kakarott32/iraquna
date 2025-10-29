@@ -95,6 +95,15 @@ class ManageItemsService {
         return updatedItem;
     }
 
+    public async getAllManageItems() {
+
+        const items = await this.manageItemsSchema.find().sort({ createdAt: -1 });
+        
+        return {
+            items
+        };
+    }
+
 
 }
 
