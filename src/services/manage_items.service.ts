@@ -70,6 +70,7 @@ class ManageItemsService {
                     "images.$.title": data.title,
                     "images.$.stars": data.stars,
                     "images.$.weight": data.weight,
+                    "images.$.weight_unite": data.weight_unite
                 },
             },
             { new: true }

@@ -6,15 +6,16 @@ import ConnectUsService from "../../services/connect_us.service";
 import GalleryService from "../../services/gallery.service";
 import ManageItemsService from "../../services/manage_items.service";
 import type { SupportedLanguage } from "../../interface/global.interface";
+import ReportService from "../../services/report.service";
 
 export const dashboardLandingController = new Elysia()
     .group("/dashboard", (group) =>
         group
             .get("/", async ({ query, set }) => {
                 try {
-                    
+
                     const language = (query.lang as SupportedLanguage) || 'ar';
-                    
+
                     // Validate language
                     if (!['ar', 'en', 'ku'].includes(language)) {
                         set.status = 400;
@@ -23,7 +24,7 @@ export const dashboardLandingController = new Elysia()
                             message: "Unsupported language. Use: ar, en, or ku",
                         };
                     }
-                    
+
                     // Fetch all data concurrently for better performance
                     const [videoSection, animatedProducts, specialProducts, connectInfo] = await Promise.all([
                         VideoSectionService.getVideoSection(),
@@ -68,8 +69,8 @@ export const dashboardLandingController = new Elysia()
 
                     // Prepare success message based on language
                     const successMessage = language === 'ar' ? "تم استرجاع بيانات لوحة التحكم بنجاح" :
-                                         language === 'en' ? "Dashboard data retrieved successfully" :
-                                         "زانیارییەکانی داشبۆرد بە سەرکەوتووی وەرگیرا";
+                        language === 'en' ? "Dashboard data retrieved successfully" :
+                            "زانیارییەکانی داشبۆرد بە سەرکەوتووی وەرگیرا";
 
                     return {
                         error: false,
@@ -88,22 +89,22 @@ export const dashboardLandingController = new Elysia()
                             connect_info: connectInfo
                         }
                     };
-                    
+
                 } catch (error) {
                     const language = (query.lang as SupportedLanguage) || 'ar';
                     set.status = 500;
                     return {
                         error: true,
-                        message: language === 'ar' ? "خطأ في استرجاع بيانات لوحة التحكم" : 
-                               language === 'en' ? "Error retrieving dashboard data" : 
-                               "هەڵەیەک لە وەرگرتنەوەی زانیارییەکانی داشبۆردا ڕوویدا",
+                        message: language === 'ar' ? "خطأ في استرجاع بيانات لوحة التحكم" :
+                            language === 'en' ? "Error retrieving dashboard data" :
+                                "هەڵەیەک لە وەرگرتنەوەی زانیارییەکانی داشبۆردا ڕوویدا",
                     };
                 }
             }, {
                 query: t.Object({
                     lang: t.Optional(t.Union([
                         t.Literal('ar'),
-                        t.Literal('en'), 
+                        t.Literal('en'),
                         t.Literal('ku')
                     ]))
                 })
@@ -111,7 +112,7 @@ export const dashboardLandingController = new Elysia()
             .get("/gallery", async ({ query, set }) => {
                 try {
                     const language = (query.lang as SupportedLanguage) || 'ar';
-                    
+
                     // Validate language
                     if (!['ar', 'en', 'ku'].includes(language)) {
                         set.status = 400;
@@ -120,7 +121,7 @@ export const dashboardLandingController = new Elysia()
                             message: "Unsupported language. Use: ar, en, or ku",
                         };
                     }
-                    
+
                     // Fetch all gallery data
                     const galleries = await GalleryService.allGallery();
 
@@ -146,8 +147,8 @@ export const dashboardLandingController = new Elysia()
 
                     // Prepare success message based on language
                     const successMessage = language === 'ar' ? "تم استرجاع المعرض بنجاح" :
-                                         language === 'en' ? "Gallery retrieved successfully" :
-                                         "گاڵەری بە سەرکەوتووی وەرگیرا";
+                        language === 'en' ? "Gallery retrieved successfully" :
+                            "گاڵەری بە سەرکەوتووی وەرگیرا";
 
                     return {
                         error: false,
@@ -155,22 +156,22 @@ export const dashboardLandingController = new Elysia()
                         language,
                         results: localizedGalleries
                     };
-                    
+
                 } catch (error) {
                     const language = (query.lang as SupportedLanguage) || 'ar';
                     set.status = 500;
                     return {
                         error: true,
-                        message: language === 'ar' ? "خطأ في استرجاع المعرض" : 
-                               language === 'en' ? "Error retrieving gallery" : 
-                               "هەڵەیەک لە وەرگرتنەوەی گاڵەرییەکەدا ڕوویدا",
+                        message: language === 'ar' ? "خطأ في استرجاع المعرض" :
+                            language === 'en' ? "Error retrieving gallery" :
+                                "هەڵەیەک لە وەرگرتنەوەی گاڵەرییەکەدا ڕوویدا",
                     };
                 }
             }, {
                 query: t.Object({
                     lang: t.Optional(t.Union([
                         t.Literal('ar'),
-                        t.Literal('en'), 
+                        t.Literal('en'),
                         t.Literal('ku')
                     ]))
                 })
@@ -180,7 +181,7 @@ export const dashboardLandingController = new Elysia()
                     const language = (query.lang as SupportedLanguage) || 'ar';
                     const page = parseInt(query.page as string) || 1;
                     const limit = Math.min(parseInt(query.limit as string) || 10, 50); // Max 50 per page
-                    
+
                     // Validate language
                     if (!['ar', 'en', 'ku'].includes(language)) {
                         set.status = 400;
@@ -194,8 +195,8 @@ export const dashboardLandingController = new Elysia()
                     if (page < 1) {
                         set.status = 400;
                         const errorMessage = language === 'ar' ? "رقم الصفحة يجب أن يكون أكبر من صفر" :
-                                           language === 'en' ? "Page number must be greater than zero" :
-                                           "ژمارەی پەڕە دەبێت لە سفرەوە زیاتر بێت";
+                            language === 'en' ? "Page number must be greater than zero" :
+                                "ژمارەی پەڕە دەبێت لە سفرەوە زیاتر بێت";
                         return {
                             error: true,
                             message: errorMessage,
@@ -205,14 +206,14 @@ export const dashboardLandingController = new Elysia()
                     if (limit < 1) {
                         set.status = 400;
                         const errorMessage = language === 'ar' ? "عدد العناصر يجب أن يكون أكبر من صفر" :
-                                           language === 'en' ? "Limit must be greater than zero" :
-                                           "ژمارەی بابەتەکان دەبێت لە سفرەوە زیاتر بێت";
+                            language === 'en' ? "Limit must be greater than zero" :
+                                "ژمارەی بابەتەکان دەبێت لە سفرەوە زیاتر بێت";
                         return {
                             error: true,
                             message: errorMessage,
                         };
                     }
-                    
+
                     // Fetch special product items with pagination
                     const specialProducts = await SpecialProductItemsService.getAllSpecialProductItems({ page, limit });
 
@@ -234,8 +235,8 @@ export const dashboardLandingController = new Elysia()
 
                     // Prepare success message based on language
                     const successMessage = language === 'ar' ? "تم استرجاع المنتجات المميزة بنجاح" :
-                                         language === 'en' ? "Special products retrieved successfully" :
-                                         "بەرهەمە تایبەتەکان بە سەرکەوتووی وەرگیران";
+                        language === 'en' ? "Special products retrieved successfully" :
+                            "بەرهەمە تایبەتەکان بە سەرکەوتووی وەرگیران";
 
                     return {
                         error: false,
@@ -246,22 +247,22 @@ export const dashboardLandingController = new Elysia()
                             pagination: specialProducts.pagination
                         }
                     };
-                    
+
                 } catch (error) {
                     const language = (query.lang as SupportedLanguage) || 'ar';
                     set.status = 500;
                     return {
                         error: true,
-                        message: language === 'ar' ? "خطأ في استرجاع المنتجات المميزة" : 
-                               language === 'en' ? "Error retrieving special products" : 
-                               "هەڵەیەک لە وەرگرتنەوەی بەرهەمە تایبەتەکاندا ڕوویدا",
+                        message: language === 'ar' ? "خطأ في استرجاع المنتجات المميزة" :
+                            language === 'en' ? "Error retrieving special products" :
+                                "هەڵەیەک لە وەرگرتنەوەی بەرهەمە تایبەتەکاندا ڕوویدا",
                     };
                 }
             }, {
                 query: t.Object({
                     lang: t.Optional(t.Union([
                         t.Literal('ar'),
-                        t.Literal('en'), 
+                        t.Literal('en'),
                         t.Literal('ku')
                     ])),
                     page: t.Optional(t.String()),
@@ -308,8 +309,8 @@ export const dashboardLandingController = new Elysia()
 
                     // Prepare success message based on language
                     const successMessage = language === 'ar' ? "تم استرجاع عناصر الإدارة بنجاح" :
-                                         language === 'en' ? "Manage items retrieved successfully" :
-                                         "بابەتە بەڕێوەبردنی بە سەرکەوتووی وەرگیران";
+                        language === 'en' ? "Manage items retrieved successfully" :
+                            "بابەتە بەڕێوەبردنی بە سەرکەوتووی وەرگیران";
 
                     return {
                         error: false,
@@ -324,8 +325,8 @@ export const dashboardLandingController = new Elysia()
                     return {
                         error: true,
                         message: language === 'ar' ? "خطأ في استرجاع عناصر الإدارة" :
-                               language === 'en' ? "Error retrieving manage items" :
-                               "هەڵەیەک لە وەرگرتنەوەی بابەتە بەڕێوەبردنی دا ڕوویدا",
+                            language === 'en' ? "Error retrieving manage items" :
+                                "هەڵەیەک لە وەرگرتنەوەی بابەتە بەڕێوەبردنی دا ڕوویدا",
                     };
                 }
             }, {
@@ -337,5 +338,29 @@ export const dashboardLandingController = new Elysia()
                     ])),
                 })
             })
+            .post("/reports", async ({ body, set }) => {
+                try {
+                    await ReportService.createReport({
+                        data: body,
+                    });
+
+                    return {
+                        error: false,
+                        message: "تم استلام التقرير بنجاح",
+                    };
+                } catch (error) {
+                    set.status = 500;
+                    return {
+                        error: true,
+                        message: "خطأ في تقديم التقرير",
+                    };
+                }
+            }, {
+                body: t.Object({
+                    full_name: t.String(),
+                    phone: t.String(),
+                    message: t.String(),
+                })
+            }
+            )
     );
-            
