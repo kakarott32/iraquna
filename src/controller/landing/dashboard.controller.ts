@@ -45,6 +45,10 @@ export const dashboardLandingController = new Elysia()
                         title: localizeText(videoSection.title),
                         description: localizeText(videoSection.description),
                         video: videoSection.video,
+                        image_right_top: videoSection.image_right_top,
+                        image_right_bottom: videoSection.image_right_bottom,
+                        image_left_top: videoSection.image_left_top,
+                        image_left_bottom: videoSection.image_left_bottom,
                         createdAt: videoSection.createdAt,
                         updatedAt: videoSection.updatedAt
                     } : null;
