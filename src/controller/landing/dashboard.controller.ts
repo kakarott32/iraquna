@@ -142,7 +142,6 @@ export const dashboardLandingController = new Elysia()
                         images: gallery.images.map((image: any) => ({
                             _id: image._id,
                             title: localizeText(image.title),
-                            description: localizeText(image.description),
                             image: image.image,
                         })),
                         createdAt: gallery.createdAt,

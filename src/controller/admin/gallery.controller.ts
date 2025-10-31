@@ -148,11 +148,6 @@ export const galleryAdminController = new Elysia()
                         en: t.Optional(t.Nullable(t.String())),
                         ku: t.Optional(t.Nullable(t.String())),
                     }),
-                    description: t.Object({
-                        ar: t.Optional(t.Nullable(t.String())),
-                        en: t.Optional(t.Nullable(t.String())),
-                        ku: t.Optional(t.Nullable(t.String())),
-                    }),
                     image: t.Object({
                         id: t.String({
                             error: "Image ID is required",
@@ -213,11 +208,6 @@ export const galleryAdminController = new Elysia()
                 beforeHandle: AuthServiceDashboard,
                 body: t.Object({
                     title: t.Optional(t.Object({
-                        ar: t.Optional(t.Nullable(t.String())),
-                        en: t.Optional(t.Nullable(t.String())),
-                        ku: t.Optional(t.Nullable(t.String())),
-                    })),
-                    description: t.Optional(t.Object({
                         ar: t.Optional(t.Nullable(t.String())),
                         en: t.Optional(t.Nullable(t.String())),
                         ku: t.Optional(t.Nullable(t.String())),

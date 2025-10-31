@@ -8,6 +8,5 @@ export interface IGallery {
 
 export interface IGalleryImages {
     title: IMultiLanguageText;
-    description: IMultiLanguageText;
     image: IMediaImage;
 }

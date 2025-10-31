@@ -68,7 +68,6 @@ class GalleryService {
             {
                 $set: {
                     "images.$.title": data.title,
-                    "images.$.description": data.description,
                     "images.$.image": data.image,
                 },
             },

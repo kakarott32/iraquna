@@ -8,11 +8,6 @@ const galleryImageSchema = new mongoose.Schema(
             en: { type: String, default: null },
             ku: { type: String, default: null },
         },
-        description: {
-            ar: { type: String, default: null },
-            en: { type: String, default: null },
-            ku: { type: String, default: null },
-        },
         image: {
             id: { type: String, required: true },
             url: { type: String, required: true },
