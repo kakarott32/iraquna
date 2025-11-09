@@ -39,10 +39,10 @@ export const manageItemsAdminController = new Elysia()
 
             // Create Title for manage items
             .post("/title", async ({ body, set }) => {
-
                 try {
                     const item = await ManageItemsService.createTitleManageItem({
                         title: body.title,
+                        sorting: body.sorting
                     });
 
                     return {
@@ -64,7 +64,43 @@ export const manageItemsAdminController = new Elysia()
                         ar: t.Optional(t.Nullable(t.String())),
                         en: t.Optional(t.Nullable(t.String())),
                         ku: t.Optional(t.Nullable(t.String())),
+                    }),
+                    sorting: t.Number({
+                        error: "Sorting is required",
                     })
+                })
+            })
+
+            .put("/sorting/id/:id", async ({  params,body, set }) => {
+                //sort items by given array of ids and their order
+                try {
+                    const sortNumber = body.sorting;
+                    await ManageItemsService.updateSortingManageItem({
+                        id: params.id,
+                        sorting: sortNumber
+                    });
+
+
+                    return {
+                        error: false,
+                        message: "تم تحديث ترتيب عناصر الإدارة بنجاح",
+                    };
+                } catch (error) {
+                    set.status = 500;
+                    return {
+                        error: true,
+                        message: "خطأ في تحديث ترتيب عناصر الإدارة",
+                    };
+                }
+            }, {
+                beforeHandle: AuthServiceDashboard,
+                body: t.Object({
+                    sorting: t.Number({
+                        error: "Sorting number is required",
+                    })
+                }),
+                params: t.Object({
+                    id: t.String(),
                 })
             })
 

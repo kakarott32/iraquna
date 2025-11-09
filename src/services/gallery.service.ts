@@ -10,17 +10,35 @@ class GalleryService {
 
     public async createTitleGallery({
         title,
+        sorting
     }: {
         title: IMultiLanguageText;
+        sorting: number;
     }) {
-        const newItem = await this.gallerySchema.create({ title });
+        const newItem = await this.gallerySchema.create({ title, sorting });
         return newItem;
     }
 
     public async allGallery() {
-        const items = await this.gallerySchema.find().sort({ createdAt: -1 });
+        const items = await this.gallerySchema.find().sort({ sorting: -1 });
         return items;
     }
+
+    //updateSortingGallery
+    public async updateSortingGallery({
+        id,
+        sorting,
+    }: {
+        id: string;
+        sorting: number;
+    }) {
+        const updatedItem = await this.gallerySchema.findByIdAndUpdate( 
+            id,
+            { sorting },
+            { new: true }
+        );
+        return updatedItem;
+    }   
 
     public async updateTitleGallery({
         id,

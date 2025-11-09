@@ -26,6 +26,7 @@ const gallerySchema = new mongoose.Schema(
             ku: { type: String, default: null },
         },
         images: [galleryImageSchema],
+        sorting: { type: Number, default: 0 },
     },
     { timestamps: true }
 );

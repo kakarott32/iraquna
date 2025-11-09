@@ -74,7 +74,11 @@ const manageItemsSchema = new mongoose.Schema({
             default: null
         }
     },
-    images: [manageImagesSchema]
+    sorting: {
+        type: Number,
+        required: true
+    },
+    images: [manageImagesSchema],
 }, { timestamps: true });
 
 const ManageItemsSchema = mongoose.model("manage_items", manageItemsSchema);

@@ -44,6 +44,7 @@ export const galleryAdminController = new Elysia()
                 try {
                     const item = await GalleryService.createTitleGallery({
                         title: body.title,
+                        sorting: body.sorting
                     });
 
                     return {
@@ -65,6 +66,9 @@ export const galleryAdminController = new Elysia()
                         ar: t.Optional(t.Nullable(t.String())),
                         en: t.Optional(t.Nullable(t.String())),
                         ku: t.Optional(t.Nullable(t.String())),
+                    }),
+                    sorting: t.Number({
+                        error: "Sorting is required",
                     })
                 })
             })
@@ -112,6 +116,52 @@ export const galleryAdminController = new Elysia()
                         ar: t.Optional(t.Nullable(t.String())),
                         en: t.Optional(t.Nullable(t.String())),
                         ku: t.Optional(t.Nullable(t.String())),
+                    })
+                }),
+                params: t.Object({
+                    id: t.String(),
+                })
+            })
+            .put("/sorting/id/:id", async ({ params, body, set }) => {
+                try {
+                    if (!ObjectId(params.id)) {
+                        set.status = 400;
+                        return {
+                            error: true,
+                            message: "معرف غير صالح",
+                        };
+                    }
+
+                    const updatedItem = await GalleryService.updateSortingGallery({
+                        id: params.id,
+                        sorting: body.sorting,
+                    });
+
+                    if (!updatedItem) {
+                        set.status = 404;
+                        return {
+                            error: true,
+                            message: "لم يتم العثور على عنصر المعرض لتحديثه",
+                        };
+                    }
+
+                    return {
+                        error: false,
+                        message: "تم تحديث ترتيب المعرض بنجاح",
+                        results: updatedItem,
+                    };
+                } catch (error) {
+                    set.status = 500;
+                    return {
+                        error: true,
+                        message: "خطأ في تحديث ترتيب المعرض",
+                    };
+                }
+            }, {
+                beforeHandle: AuthServiceDashboard,
+                body: t.Object({
+                    sorting: t.Number({
+                        error: "Sorting is required",
                     })
                 }),
                 params: t.Object({

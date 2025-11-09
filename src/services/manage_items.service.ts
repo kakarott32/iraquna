@@ -11,15 +11,33 @@ class ManageItemsService {
 
     public async createTitleManageItem({
         title,
+        sorting
     }: {
         title: IMultiLanguageText;
+        sorting: number;
     }) {
-        const newItem = await this.manageItemsSchema.create({ title });
+        const newItem = await this.manageItemsSchema.create({ title, sorting });
         return newItem;
     }
 
+    //updateSortingManageItem
+    public async updateSortingManageItem({
+        id,
+        sorting,
+    }: {
+        id: string;
+        sorting: number;
+    }) {
+        const updatedItem = await this.manageItemsSchema.findByIdAndUpdate( 
+            id,
+            { sorting },
+            { new: true }
+        );
+        return updatedItem;
+    }
+
     public async allManageItem() {
-        const items = await this.manageItemsSchema.find().sort({ createdAt: -1 });
+        const items = await this.manageItemsSchema.find().sort({ sorting: -1 });
         return items;
     }
 
@@ -76,7 +94,7 @@ class ManageItemsService {
             { new: true }
         );
         return updatedItem;
-    }  
+    }
 
     public async deleteImageManageItem({
         itemId,
@@ -97,8 +115,8 @@ class ManageItemsService {
 
     public async getAllManageItems() {
 
-        const items = await this.manageItemsSchema.find().sort({ createdAt: -1 });
-        
+        const items = await this.manageItemsSchema.find().sort({ sorting: -1 });
+
         return {
             items
         };
