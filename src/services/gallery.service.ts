@@ -20,7 +20,7 @@ class GalleryService {
     }
 
     public async allGallery() {
-        const items = await this.gallerySchema.find().sort({ sorting: -1 });
+        const items = await this.gallerySchema.find().sort({ sorting: 1 });
         return items;
     }
 

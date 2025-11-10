@@ -37,7 +37,7 @@ class ManageItemsService {
     }
 
     public async allManageItem() {
-        const items = await this.manageItemsSchema.find().sort({ sorting: -1 });
+        const items = await this.manageItemsSchema.find().sort({ sorting: 1 });
         return items;
     }
 
@@ -115,7 +115,7 @@ class ManageItemsService {
 
     public async getAllManageItems() {
 
-        const items = await this.manageItemsSchema.find().sort({ sorting: -1 });
+        const items = await this.manageItemsSchema.find().sort({ sorting: 1 });
 
         return {
             items
