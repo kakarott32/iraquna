@@ -54,10 +54,14 @@ export const connectUsAdminController = new Elysia()
                     const info = await ConnectUsService.createConnectUsInfo({
                         data: {
                             ...body,
+                            phone_3: body.phone_3 || undefined,
+                            phone_4: body.phone_4 || undefined,
                             map_embed_link: body.map_embed_link || undefined,
                             facebook_link: body.facebook_link || undefined,
                             instagram_link: body.instagram_link || undefined,
                             whatsapp_link: body.whatsapp_link || undefined,
+                            youtube_link: body.youtube_link || undefined,
+                            tiktok_link: body.tiktok_link || undefined,
                         },
                     });
 
@@ -81,6 +85,8 @@ export const connectUsAdminController = new Elysia()
                         error: "الهاتف الأول مطلوب",
                     }),
                     phone_2: t.Optional(t.Nullable(t.String())),
+                    phone_3: t.Optional(t.Nullable(t.String())),
+                    phone_4: t.Optional(t.Nullable(t.String())),
                     email: t.String({
                         format: "email",
                         error: "البريد الإلكتروني مطلوب ويجب أن يكون صالحاً",
@@ -92,6 +98,8 @@ export const connectUsAdminController = new Elysia()
                     facebook_link: t.Optional(t.Nullable(t.String())),
                     instagram_link: t.Optional(t.Nullable(t.String())),
                     whatsapp_link: t.Optional(t.Nullable(t.String())),
+                    youtube_link: t.Optional(t.Nullable(t.String())),
+                    tiktok_link: t.Optional(t.Nullable(t.String())),
                 })
             })
 
@@ -101,10 +109,14 @@ export const connectUsAdminController = new Elysia()
                     const updatedInfo = await ConnectUsService.updateOrCreateConnectUsInfo({
                         data: {
                             ...body,
+                            phone_3: body.phone_3 || undefined,
+                            phone_4: body.phone_4 || undefined,
                             map_embed_link: body.map_embed_link || undefined,
                             facebook_link: body.facebook_link || undefined,
                             instagram_link: body.instagram_link || undefined,
                             whatsapp_link: body.whatsapp_link || undefined,
+                            youtube_link: body.youtube_link || undefined,
+                            tiktok_link: body.tiktok_link || undefined,
                         },
                     });
 
@@ -125,6 +137,8 @@ export const connectUsAdminController = new Elysia()
                 body: t.Object({
                     phone_1: t.Optional(t.String()),
                     phone_2: t.Optional(t.Nullable(t.String())),
+                    phone_3: t.Optional(t.Nullable(t.String())),
+                    phone_4: t.Optional(t.Nullable(t.String())),
                     email: t.Optional(t.String({
                         format: "email",
                         error: "البريد الإلكتروني يجب أن يكون صالحاً",
@@ -134,6 +148,8 @@ export const connectUsAdminController = new Elysia()
                     facebook_link: t.Optional(t.Nullable(t.String())),
                     instagram_link: t.Optional(t.Nullable(t.String())),
                     whatsapp_link: t.Optional(t.Nullable(t.String())),
+                    youtube_link: t.Optional(t.Nullable(t.String())),
+                    tiktok_link: t.Optional(t.Nullable(t.String())),
                 })
             })
 
@@ -152,10 +168,14 @@ export const connectUsAdminController = new Elysia()
                         id: params.id,
                         data: {
                             ...body,
+                            phone_3: body.phone_3 || undefined,
+                            phone_4: body.phone_4 || undefined,
                             map_embed_link: body.map_embed_link || undefined,
                             facebook_link: body.facebook_link || undefined,
                             instagram_link: body.instagram_link || undefined,
                             whatsapp_link: body.whatsapp_link || undefined,
+                            youtube_link: body.youtube_link || undefined,
+                            tiktok_link: body.tiktok_link || undefined,
                         },
                     });
 
@@ -187,6 +207,8 @@ export const connectUsAdminController = new Elysia()
                 body: t.Object({
                     phone_1: t.Optional(t.String()),
                     phone_2: t.Optional(t.Nullable(t.String())),
+                    phone_3: t.Optional(t.Nullable(t.String())),
+                    phone_4: t.Optional(t.Nullable(t.String())),
                     email: t.Optional(t.String({
                         format: "email",
                         error: "البريد الإلكتروني يجب أن يكون صالحاً",
@@ -196,6 +218,8 @@ export const connectUsAdminController = new Elysia()
                     facebook_link: t.Optional(t.Nullable(t.String())),
                     instagram_link: t.Optional(t.Nullable(t.String())),
                     whatsapp_link: t.Optional(t.Nullable(t.String())),
+                    youtube_link: t.Optional(t.Nullable(t.String())),
+                    tiktok_link: t.Optional(t.Nullable(t.String())),
                 })
             })
 

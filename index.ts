@@ -10,6 +10,8 @@ import { manageItemsAdminController } from './src/controller/admin/manage_items.
 import galleryAdminController from './src/controller/admin/gallery.controller';
 import reportAdminController from './src/controller/admin/report.controller';
 import connectUsAdminController from './src/controller/admin/connect_us.controller';
+import jobRequestAdminController from './src/controller/admin/job_request.controller';
+import jobRequestLandingController from './src/controller/landing/job_request.controller';
 
 // Connect to database and start server
 const startServer = async () => {
@@ -65,6 +67,8 @@ const app = new Elysia()
     .use(galleryAdminController)
     .use(reportAdminController)
     .use(connectUsAdminController)
+    .use(jobRequestAdminController)
+    .use(jobRequestLandingController)
   )
 
   // Error handling

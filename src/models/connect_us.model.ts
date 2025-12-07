@@ -39,7 +39,27 @@ const connectUsSchema = new mongoose.Schema(
             default: null,
             trim: true,
         },
+        phone_3: {
+            type: String,
+            default: null,
+            trim: true,
+        },
+        phone_4: {
+            type: String,
+            default: null,
+            trim: true,
+        },
         whatsapp_link: {
+            type: String,
+            default: null,
+            trim: true,
+        },
+        youtube_link: {
+            type: String,
+            default: null,
+            trim: true,
+        },
+        tiktok_link: {
             type: String,
             default: null,
             trim: true,
