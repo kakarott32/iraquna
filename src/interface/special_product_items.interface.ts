@@ -6,4 +6,5 @@ export interface ISpecialProductItems {
     title?: IMultiLanguageText;
     stars: number;
     image: IMediaImage;
+    description: IMultiLanguageText;
 }

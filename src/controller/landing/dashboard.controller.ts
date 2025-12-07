@@ -67,6 +67,7 @@ export const dashboardLandingController = new Elysia()
                         title: localizeText(item.title),
                         stars: item.stars,
                         image: item.image,
+                        description: localizeText(item.description),
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt
                     }));
@@ -143,6 +144,7 @@ export const dashboardLandingController = new Elysia()
                             _id: image._id,
                             title: localizeText(image.title),
                             image: image.image,
+                            description: localizeText(image.description),
                         })),
                         createdAt: gallery.createdAt,
                         updatedAt: gallery.updatedAt
@@ -232,6 +234,7 @@ export const dashboardLandingController = new Elysia()
                         title: localizeText(item.title),
                         stars: item.stars,
                         image: item.image,
+                        description: localizeText(item.description),
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt
                     }));
@@ -305,6 +308,7 @@ export const dashboardLandingController = new Elysia()
                             weight: image.weight,
                             weight_unite: localizeText(image.weight_unite),
                             image: image.image,
+                            description: localizeText(image.description),
                         })),
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt

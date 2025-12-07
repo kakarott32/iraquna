@@ -208,6 +208,11 @@ export const manageItemsAdminController = new Elysia()
                             error: "Image height is required",
                         }),
                     }),
+                    description: t.Object({
+                        ar: t.Optional(t.Nullable(t.String())),
+                        en: t.Optional(t.Nullable(t.String())),
+                        ku: t.Optional(t.Nullable(t.String())),
+                    }),
                 }),
                 params: t.Object({
                     id: t.String(),
@@ -270,6 +275,11 @@ export const manageItemsAdminController = new Elysia()
                         ku: t.String({
                             error: "Weight unit in Kurdish is required",
                         }),
+                    })),
+                    description: t.Optional(t.Object({
+                        ar: t.Optional(t.Nullable(t.String())),
+                        en: t.Optional(t.Nullable(t.String())),
+                        ku: t.Optional(t.Nullable(t.String())),
                     })),
                 }),
                 params: t.Object({

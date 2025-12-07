@@ -14,6 +14,21 @@ const galleryImageSchema = new mongoose.Schema(
             width: { type: Number, required: true },
             height: { type: Number, required: true },
         },
+
+        description: {
+            ar: {
+                type: String,
+                default: null
+            },
+            en: {
+                type: String,
+                default: null
+            },
+            ku: {
+                type: String,
+                default: null
+            }
+        }
     },
     { timestamps: true }
 );

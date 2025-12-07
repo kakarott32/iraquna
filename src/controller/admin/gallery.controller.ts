@@ -212,6 +212,11 @@ export const galleryAdminController = new Elysia()
                             error: "Image height is required",
                         }),
                     }),
+                    description: t.Object({
+                        ar: t.Optional(t.Nullable(t.String())),
+                        en: t.Optional(t.Nullable(t.String())),
+                        ku: t.Optional(t.Nullable(t.String())),
+                    }),
                 }),
                 params: t.Object({
                     id: t.String(),
@@ -275,6 +280,11 @@ export const galleryAdminController = new Elysia()
                         height: t.Number({
                             error: "Image height is required",
                         }),
+                    })),
+                    description: t.Optional(t.Object({
+                        ar: t.Optional(t.Nullable(t.String())),
+                        en: t.Optional(t.Nullable(t.String())),
+                        ku: t.Optional(t.Nullable(t.String())),
                     })),
                 }),
                 params: t.Object({

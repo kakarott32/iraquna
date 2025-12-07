@@ -12,6 +12,7 @@ export interface IManageImages {
     weight?: number | null;
     weight_unite: IWeightUnit;
     image: IMediaImage;
+    description: IMultiLanguageText;
 }
 
 interface IWeightUnit {

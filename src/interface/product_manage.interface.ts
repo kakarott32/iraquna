@@ -11,4 +11,5 @@ export interface IItems {
     title?: IMultiLanguageText;
     stars: number;
     image: IMediaImage;
+    description: IMultiLanguageText;
 }

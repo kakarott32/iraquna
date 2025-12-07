@@ -56,6 +56,20 @@ const manageImagesSchema = new mongoose.Schema({
             type: Number,
             required: true
         }
+    },
+    description: {
+        ar: {
+            type: String,
+            default: null
+        },
+        en: {
+            type: String,
+            default: null
+        },
+        ku: {
+            type: String,
+            default: null
+        }
     }
 });
 
