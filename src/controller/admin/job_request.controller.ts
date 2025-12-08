@@ -56,9 +56,7 @@ export const jobRequestAdminController = new Elysia()
                         error: false,
                         message: "تم تحديث إعدادات طلب الوظيفة بنجاح",
                         results: {
-                            button_text: updatedConfig.button_text,
-                            is_hide: updatedConfig.is_hide,
-                            url: process.env.JOB_REQUEST_URL || "",
+                            ...body,
                         },
                     };
                 } catch (error) {
@@ -73,6 +71,7 @@ export const jobRequestAdminController = new Elysia()
                 body: t.Object({
                     button_text: t.Optional(t.String()),
                     is_hide: t.Optional(t.Boolean()),
+                    url: t.Optional(t.String()),
                 })
             })
     );

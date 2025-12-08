@@ -1,12 +1,12 @@
 import JobRequestSchema from "../models/job_request.model";
-import type { IJobRequest, IJobRequestConfig } from "../interface/job_request.interface";
+import type { IJobRequest } from "../interface/job_request.interface";
 
 class JobRequestService {
     // Get job request with URL from environment
-    static async getJobRequestConfig(): Promise<IJobRequestConfig | null> {
+    static async getJobRequestConfig(): Promise<IJobRequest | null> {
         try {
             const dbRequest = await JobRequestSchema.findOne({});
-            
+
             if (!dbRequest) {
                 return null;
             }
@@ -26,29 +26,21 @@ class JobRequestService {
 
 
     // Create or update job request (singleton pattern)
-    static async createOrUpdateJobRequest({ data }: { data: Partial<IJobRequest> }) {
+    static async createOrUpdateJobRequest({ data }: { data: Partial<IJobRequest> }) {        
         try {
             // Check if document exists
-            const existing = await JobRequestSchema.findOne({});
-            
-            if (existing) {
-                // Update existing
-                const updated = await JobRequestSchema.findByIdAndUpdate(
-                    existing._id,
-                    data,
-                    { new: true }
-                );
-                return updated;
-            } else {
-                // Create new
-                const newRequest = new JobRequestSchema(data);
-                const saved = await newRequest.save();
-                return saved;
-            }
+
+            const updated = await JobRequestSchema.updateOne(
+                {},
+                data,
+            );
+            return updated;
         } catch (error) {
             throw new Error(`Error creating/updating job request: ${error}`);
         }
     }
+
+
     static async getActiveJobRequest(): Promise<IJobRequest | null> {
         try {
             const jobRequest = await JobRequestSchema.findOne({ is_hide: false });
