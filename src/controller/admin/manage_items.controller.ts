@@ -263,6 +263,20 @@ export const manageItemsAdminController = new Elysia()
                         en: t.Optional(t.Nullable(t.String())),
                         ku: t.Optional(t.Nullable(t.String())),
                     })),
+                    image: t.Optional(t.Object({
+                        id: t.String({
+                            error: "Image ID is required",
+                        }),
+                        url: t.String({
+                            error: "Image URL is required",
+                        }),
+                        width: t.Number({
+                            error: "Image width is required",
+                        }),
+                        height: t.Number({
+                            error: "Image height is required",
+                        }),
+                    })),
                     stars: t.Optional(t.Number()),
                     weight: t.Optional(t.Number()),
                     weight_unite: t.Optional(t.Object({
