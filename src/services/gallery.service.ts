@@ -87,6 +87,7 @@ class GalleryService {
                 $set: {
                     "images.$.title": data.title,
                     "images.$.image": data.image,
+                    "images.$.description": data.description
                 },
             },
             { new: true }

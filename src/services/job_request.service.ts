@@ -36,7 +36,7 @@ class JobRequestService {
             );
             return updated;
         } catch (error) {
-            throw new Error(`Error creating/updating job request: ${error}`);
+            throw new Error(`Error updating job request: ${error}`);
         }
     }
 
