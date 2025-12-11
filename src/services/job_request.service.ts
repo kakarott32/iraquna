@@ -12,10 +12,9 @@ class JobRequestService {
             }
 
             // Get URL from environment variable
-            const url = process.env.JOB_REQUEST_URL || "";
 
             return {
-                url,
+                url :dbRequest.url,
                 button_text: dbRequest.button_text,
                 is_hide: dbRequest.is_hide,
             };
