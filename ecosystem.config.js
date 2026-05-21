@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'iraquna',      // A name for your application
       script: 'bun',            // The interpreter to use
-      args: 'run src/index.ts', // The script to run with Bun
+      args: 'run index.ts', // The script to run with Bun
       watch: true,              // Automatically restart on file changes
       autorestart: true,        // Automatically restart if the app crashes
       env: {

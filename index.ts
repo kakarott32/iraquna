@@ -70,11 +70,15 @@ const app = new Elysia()
     return { error: true, message: 'Internal server error' };
   });
 
-try {
-  await connectDB();
-  app.listen(port);
-  console.log(`🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`);
-} catch (error) {
-  console.error('Failed to start server:', error);
-  process.exit(1);
-}
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(port);
+    console.log(`🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`);
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
