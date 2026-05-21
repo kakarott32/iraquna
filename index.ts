@@ -13,32 +13,7 @@ import connectUsAdminController from './src/controller/admin/connect_us.controll
 import jobRequestAdminController from './src/controller/admin/job_request.controller';
 import jobRequestLandingController from './src/controller/landing/job_request.controller';
 
-// Connect to database and start server
-const startServer = async () => {
-  try {
-    await connectDB();
-
-    const port = process.env.PORT || 3020;
-    // console.log(`🚀 Server is running on port ${port}`);
-    // console.log(`📡 API Base URL: http://localhost:${port}/api`);
-    // console.log(`🔐 Auth endpoints: http://localhost:${port}/api/auth`);
-    // console.log(`🎥 Video Section Admin: http://localhost:${port}/api/admin/video-section`);
-    // console.log(`📱 Dashboard Public: http://localhost:${port}/api/dashboard`);
-    // console.log(`🎨 Animated Products Admin: http://localhost:${port}/api/admin/animated-product-items`);
-    // console.log(`🛍️ Animated Products Public: http://localhost:${port}/api/animated-product-items`);
-    // console.log(`⭐ Special Products Admin: http://localhost:${port}/api/admin/special-product-items`);
-    // console.log(`🌟 Special Products Public: http://localhost:${port}/api/special-product-items`);
-    // console.log(`📋 Manage Items Admin: http://localhost:${port}/api/admin/manage-items`);
-    // console.log(`🛠️ Manage Items Public: http://localhost:${port}/api/manage-items`);
-    // console.log(`🖼️ Gallery Admin: http://localhost:${port}/api/admin/gallery`);
-    // console.log(`📋 Reports Admin: http://localhost:${port}/api/admin/reports`);
-    // console.log(`📞 Connect Us Admin: http://localhost:${port}/api/admin/connect-us`);
-
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
-  }
-};
+const port = Number(process.env.PORT || 3001);
 
 const app = new Elysia()
   // CORS middleware
@@ -72,26 +47,34 @@ const app = new Elysia()
   )
 
   // Error handling
-  .onError(({ code, error, set }) => {
-    console.error('Unhandled error:', error);
+  .onError(({ code, error, request, set }) => {
+    const path = new URL(request.url).pathname;
 
     if (code === 'NOT_FOUND') {
       set.status = 404;
-      return { error: 'Route not found' };
+      console.warn(`Route not found: ${request.method} ${path}`);
+      return {
+        error: true,
+        message: 'Route not found',
+        path
+      };
     }
 
     if (code === 'VALIDATION') {
       set.status = 400;
-      return { error: 'Validation error', details: error.message };
+      return { error: true, message: 'Validation error', details: error.message };
     }
 
+    console.error('Unhandled error:', error);
     set.status = 500;
-    return { error: 'Internal server error' };
-  })
+    return { error: true, message: 'Internal server error' };
+  });
 
-  .listen(process.env.PORT || 3001);
-
-// Initialize server
-startServer();
-
-console.log(`🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`);
+try {
+  await connectDB();
+  app.listen(port);
+  console.log(`🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`);
+} catch (error) {
+  console.error('Failed to start server:', error);
+  process.exit(1);
+}
